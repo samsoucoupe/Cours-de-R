@@ -15,6 +15,13 @@ Somme2Max<-function(x,y,z){
     }
 }
 
+Somme2Max(1, 2, 3)
+Somme2Max(1, 3, 2)
+Somme2Max(2, 1, 3)
+Somme2Max(2, 3, 1)
+Somme2Max(3, 1, 2)
+Somme2Max(3, 2, 1)
+
 Somme2Max<-function(x,y,z){return(max(x,y,z))}
 
 Somme2Max(1, 2, 3)
