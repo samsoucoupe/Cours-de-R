@@ -46,3 +46,21 @@ printsomme2max<-function(x,y,z){
 }
 
 printsomme2max(3,5,7)
+
+
+sample(6, size=1)
+sample(1:6, size=1)
+sample(c(1, 2, 3, 4, 5, 6), size=1)
+
+sample(100:200,size=1)
+
+RandPair <- function(n) {
+    return(2*sample(n%/%2, size = 1))
+}
+
+RandPair_corrige<-function(n){
+    return(2*sample(n/2,size=1))
+}
+
+#RandPair(10)
+RandPair_corrige(10)
