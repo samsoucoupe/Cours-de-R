@@ -64,3 +64,9 @@ RandPair_corrige<-function(n){
 
 #RandPair(10)
 RandPair_corrige(10)
+
+MonteCarlo<-function(){
+    return(sample(c(2,3,5),size=1))
+}
+
+MonteCarlo()
