@@ -70,3 +70,18 @@ MonteCarlo<-function(){
 }
 
 MonteCarlo()
+
+LasVegas<-function(){
+    return(sample(c(2,3,3,5,5,5),size=1))
+}
+for (i in 1:10){
+    print(LasVegas(),)
+}
+
+table(replicate(1000, LasVegas()))
+
+RandChiffres<- function(n) {
+    return(sample(0:9, size = n, replace = TRUE))
+}
+
+RandChiffres(10)
