@@ -133,6 +133,18 @@ GainManquePasse <- function (numero,gagnant){
   else return (0)
 }
 
+GainPlein <- function (numero,gagnant){return (35*(numero == gagnant))}
+
+GainTransversale <- function (numero,gagnant){return (11*((numero-1)%/%3 == (gagnant-1)%/%3))}
+
+GainColonne <- function (numero,gagnant){return (2*((numero-1)%%3 == (gagnant-1)%%3))}
+
+GainDouzaine <- function (numero,gagnant){return (2*((numero-1)%/%12 == (gagnant-1)%/%12))}
+
+GainPairImpair <- function (numero,gagnant){return ((numero%%2 == gagnant%%2))}
+
+GainManquePasse <- function (numero,gagnant){return ((numero <= 18 && gagnant <= 18)||(numero > 18 && gagnant > 18))}
+
 GainRoulette <- function (type,numero,gagnant){
   if(type == 1) GainPlein(numero,gagnant)
   else if (gagnant ==0) return (0)
