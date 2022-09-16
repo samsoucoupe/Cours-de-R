@@ -113,7 +113,6 @@ serie<-function(r1,r2){
     print(Circuit2(5,100,25))
 }
 
-#probleme avec circuit
 exo_5<-function(){
     hconv<-function(n){
         seconde<-n%%60
@@ -143,20 +142,25 @@ exo_6<-function(){
     }
 
     arrondi <- function(x) {
-        return(x - x %% 1)
+        x<-x*100
+        x<-x - x %% 1
+        x<-x/100
+        return(x)
+
     }
 
     Impot <- function(s) {
         hh <- Tranche(s, 8000, 25000, 10) #au dessus de huit mille
         diffhvc <- s - 25000   #audessus de 25000
         hh <- hh + (diffhvc * (20 / 100)) #au dessus de vingt cinq mille
+        print(hh)
         return(arrondi(hh))
     }
 
     Tranche(1500, 2000, 3000, 10)
     Tranche(2500, 2000, 3000, 10)
     Tranche(4000, 2000, 3000, 10)
-    Impot(40001)
+    Impot(40005.69)
     #probleme avec impot
 }
 
@@ -198,9 +202,9 @@ exo_9<-function (){
 
 #exo_2()
 #exo_3()
-exo_4()
+#exo_4()
 #exo_5()
-#exo_6()
+exo_6()
 #exo_7()
 #exo_9()
 
