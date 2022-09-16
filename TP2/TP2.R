@@ -50,11 +50,11 @@ exo_2<-function(){
 }
 
 exo_3<-function(){
-    sample(6, size=1)
-    sample(1:6, size=1)
-    sample(c(1, 2, 3, 4, 5, 6), size=1)
+    print(sample(6, size=1))
+    print(sample(1:6, size=1))
+    print(sample(c(1, 2, 3, 4, 5, 6), size=1))
 
-    sample(100:200,size=1)
+    print(sample(100:200,size=1))
 
     RandPair<- function(n) {
         return(2*sample(n%/%2, size = 1))
@@ -64,31 +64,32 @@ exo_3<-function(){
         return(2*sample(n/2,size=1))
     }
 
-    RandPair(10)
-    RandPair_corrige(10)
+    print(RandPair(10))
+    print(RandPair_corrige(10))
 
     MonteCarlo<-function(){
         return(sample(c(2,3,5),size=1))
     }
 
-    MonteCarlo()
+    print(MonteCarlo())
 
     LasVegas<-function(){
         return(sample(c(2,3,3,5,5,5),size=1))
     }
 
-    table(replicate(1000, LasVegas()))
+
+    print(table(replicate(1000, LasVegas())))
 
     RandChiffres2<- function(n) {
         return(sample(0:9, size = n))
     }
-    RandChiffres2(5)
+    print(RandChiffres2(5))
 
     RandChiffres<- function(n) {
         return(sample((1*(10**n-1)):(1*10**(n)-1), size = 1))
     }
 
-    RandChiffres(2)
+    print(RandChiffres(2))
 }
 
 exo_4<-function (){
@@ -103,14 +104,13 @@ serie<-function(r1,r2){
     Circuit1<-function(r1,r2,r3){
         return(serie(r1,parallele(r2,r3)))
     }
-
-    Circuit1(5,100,25)
+    print(Circuit1(5,100,25))
 
     Circuit2<-function(r1,r2,r3){
         return(serie(parallele(r1,parallele(r2,r3)),parallele(r2,r3)))
     }
 
-    Circuit2(5,100,25)
+    print(Circuit2(5,100,25))
 }
 
 #probleme avec circuit
@@ -197,8 +197,8 @@ exo_9<-function (){
 }
 
 #exo_2()
-#exo_3()
-exo_4()
+exo_3()
+#exo_4()
 #exo_5()
 #exo_6()
 #exo_7()
