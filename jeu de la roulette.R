@@ -143,32 +143,31 @@ GainDouzaine <- function (numero,gagnant){return (2*((numero-1)%/%12 == (gagnant
 
 GainPairImpair <- function (numero,gagnant){return ((numero%%2 == gagnant%%2))}
 
-GainManquePasse <- function (numero,gagnant){return ((numero <= 18 && gagnant <= 18)||(numero > 18 && gagnant > 18))}
+GainManquePasse <- function (numero,gagnant){return ((numero <= 18 & gagnant <= 18)||(numero > 18 & gagnant > 18))}
 
 GainRoulette <- function (type,numero,gagnant){
+
   if(type == 1) GainPlein(numero,gagnant)
   else if (gagnant ==0) return (0)
-  else if (type == 2) GainTransversale(numero,gagnant)
-  else if (type == 3) GainColonne(numero,gagnant)
-  else if (type == 4) GainDouzaine(numero,gagnant)
-  else if (type == 5) GainPairImpair(numero,gagnant)
-  else if (type == 6) GainManquePasse(numero,gagnant)
-  else return(0)
+  switch(type,
+         GainPlein(numero,gagnant),
+         GainTransversale(numero,gagnant),
+         GainColonne(numero,gagnant),
+         GainDouzaine(numero,gagnant),
+         GainPairImpair(numero,gagnant),
+         GainManquePasse(numero,gagnant),
+         0)
 }
 
 
-ereur<-function(type, numero, montant, gagnant){
-  if(numero==0 && type>1){ return(TRUE)}
-  else if(type <= 0 || type > 6){ return(TRUE)}
-  else if(numero < 0 || numero > 36) {return(TRUE)}
-  else if(montant < 0) {return(TRUE)}
-  else if(gagnant < 0 || gagnant >36) {return(TRUE)}
-  return (FALSE)
-}
 MontantGainRoulette <- function (type, numero, montant, gagnant) {
   ## La fonction principale renvoyant le montant du gain
   ## et prenant en arguments une mise et un numéro gagnant.
-  if (ereur(type, numero, montant, gagnant)) { return(NA) }
+  if(numero==0 & type>1){ return(NA)}
+  else if(type <= 0 || type > 6){ return(NA)}
+  else if(numero < 0 || numero > 36) {return(NA)}
+  else if(montant < 0) {return(NA)}
+  else if(gagnant < 0 || gagnant >36) {return(NA)}
   else { return(montant * GainRoulette(type, numero, gagnant)) }
 }
 
