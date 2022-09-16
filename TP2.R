@@ -104,6 +104,7 @@ Circuit1<-function(r1,r2,r3){
     return(serie(r1,parallele(r2,r3)))
 }
 Circuit1(5,100,25)
+#probleme avec circuit
 
 hconv<-function(n){
     seconde<-n%%60
@@ -143,6 +144,7 @@ Tranche(1500,2000,3000,10)
 Tranche(2500,2000,3000,10)
 Tranche(4000,2000,3000,10)
 Impot(40001)
+#probleme avec impot
 
 hypotenus<-function(a,b){
     return(sqrt(a**2+b**2))
