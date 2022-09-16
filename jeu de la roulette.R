@@ -25,6 +25,7 @@ LireMontant <- function () {
 TirerNumeroGagnant <- function () {
   return ( sample ( 0:36 , size = 1 ) )
 }
+
 GainPlein <- function (numero,gagnant){
   if (numero == gagnant) return (35)
   else return (0)
@@ -39,14 +40,17 @@ GainColonne <- function (numero,gagnant){
   if ((numero-1)%%3 == (gagnant-1)%%3) return (2)
   else return (0)
 }
+
 GainDouzaine <- function (numero,gagnant){
   if ((numero-1)%/%12 == (gagnant-1)%/%12) return (2)
   else return (0)
 }
+
 GainPairImpair <- function (numero,gagnant){
   if (numero%%2 == gagnant%%2) return (1)
   else return (0)
 }
+
 GainManquePasse <- function (numero,gagnant){
   if (numero <= 18 && gagnant <= 18) return (1)
   else if (numero > 18 && gagnant > 18) return (1)
@@ -97,4 +101,4 @@ GainManquePasse(21,19)
 GainPairImpair(1,11)
 GainPairImpair(1,16)
 
-JouerRoulette()
+
