@@ -90,3 +90,27 @@ RandChiffres<- function(n) {
 }
 
 RandChiffres(2)
+
+serie<-function(r1,r2){
+    return(r1+r2)
+}
+
+parallele<-function(r1,r2){
+    return(1/r1+2/r2)
+}
+
+Circuit1<-function(r1,r2,r3){
+    return(serie(r1,parallele(r2,r3)))
+}
+Circuit1(5,100,25)
+
+hconv<-function(n){
+    seconde<-n%%60
+    minute<-n%/%60
+    heure<-minute%/%60
+    minute<-minute%%60
+    sprintf("%02d:%02d:%02d",heure,minute,seconde)
+}
+hconv(4567)
+hconv(3601)
+hconv(123456789)
