@@ -197,8 +197,8 @@ exo_9<-function (){
 }
 
 #exo_2()
-exo_3()
-#exo_4()
+#exo_3()
+exo_4()
 #exo_5()
 #exo_6()
 #exo_7()
