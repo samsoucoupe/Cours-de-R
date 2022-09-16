@@ -97,13 +97,20 @@ serie<-function(r1,r2){
 }
 
 parallele<-function(r1,r2){
-    return(1/r1+2/r2)
+    return((1/r1+1/r2)*(r1**2/r2))
 }
 
 Circuit1<-function(r1,r2,r3){
     return(serie(r1,parallele(r2,r3)))
 }
 Circuit1(5,100,25)
+
+Circuit2<-function(r1,r2,r3){
+    return(serie(parallele(r1,parallele(r2,r3)),parallele(r2,r3)))
+}
+
+Circuit2(5,100,25)
+
 #probleme avec circuit
 
 hconv<-function(n){
@@ -112,7 +119,7 @@ hconv<-function(n){
     heure<-minute%/%60
     minute<-minute%%60
     sprintf("%02d:%02d:%02d",heure,minute,seconde)
-    return
+    #return
 }
 hconv(4567)
 hconv(3601)
@@ -160,4 +167,9 @@ affichehypo<-function(){
     print(demandehypo())
     return
 }
-affichehypo()
+#affichehypo()
+
+f<-function(x){
+    sin(x)/sqrt(x**4+1)
+}
+
