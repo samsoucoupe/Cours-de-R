@@ -189,14 +189,15 @@ exo_7<-function(){
 }
 
 exo_9<-function (){
+    precision<-1/2**18
     f<-function(x){
         sin(x)/sqrt(x**4+1)
     }
     derivéedef<-function(x){
-        return((f(x+0.0001)-f(x))/0.0001)
+        return((f(x+precision)-f(x))/precision)
     }
     derivésecondedef<-function(x){
-        return((derivéedef(x+0.0001)-derivéedef(x))/0.0001)
+        return((derivéedef(x+precision)-derivéedef(x))/precision)
     }
 
     derivésecondedef(sqrt(2))
@@ -206,7 +207,7 @@ exo_9<-function (){
 #exo_3()
 #exo_4()
 #exo_5()
-exo_6()
+#exo_6()
 #exo_7()
-#exo_9()
+exo_9()
 
