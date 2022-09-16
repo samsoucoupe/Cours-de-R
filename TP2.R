@@ -43,6 +43,7 @@ Somme2Maxf(3, 2, 1)
 
 printsomme2max<-function(x,y,z){
     sprintf("Le résultat de l'appel de fonction Somme2Max(%d,%d,%d) est %d",x,y,z,Somme2Max(x,y,z))
+    return
 }
 
 printsomme2max(3,5,7)
@@ -110,7 +111,51 @@ hconv<-function(n){
     heure<-minute%/%60
     minute<-minute%%60
     sprintf("%02d:%02d:%02d",heure,minute,seconde)
+    return
 }
 hconv(4567)
 hconv(3601)
 hconv(123456789)
+
+
+Tranche<-function(s,b,h,p){
+    if(s<b){
+        return(0)
+    }
+    else{
+        if(s<h){
+            return((s-b)*(p/100))
+        }
+        return((h-b)*(p/100))
+    }
+}
+
+arrondi<-function(x){
+    return(x-x%%1)
+}
+Impot<-function (s){
+    hh<-Tranche(s,8000,25000,10) #au dessus de huit mille
+    diffhvc<-s-25000   #audessus de 25000
+    hh<-hh+(diffhvc*(20/100)) #au dessus de vingt cinq mille
+    return(arrondi(hh))
+}
+Tranche(1500,2000,3000,10)
+Tranche(2500,2000,3000,10)
+Tranche(4000,2000,3000,10)
+Impot(40001)
+
+hypotenus<-function(a,b){
+    return(sqrt(a**2+b**2))
+}
+hypotenus(3,4)
+demandehypo<-function(){
+    a<-as.numeric(readline("a="))
+    b<-as.numeric(readline("b="))
+    return(hypotenus(a,b))
+}
+
+affichehypo<-function(){
+    print(demandehypo())
+    return
+}
+affichehypo()
