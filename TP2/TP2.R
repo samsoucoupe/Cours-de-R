@@ -128,7 +128,6 @@ exo_5<-function(){
 }
 
 exo_6<-function(){
-
     Tranche <- function(s, b, h, p) {
         if (s < b) {
             return(0)
@@ -150,10 +149,13 @@ exo_6<-function(){
     }
 
     Impot <- function(s) {
+        liner_max<-25000
         hh <- Tranche(s, 8000, 25000, 10) #au dessus de huit mille
-        diffhvc <- s - 25000   #audessus de 25000
+        if(s>liner_max){
+            diffhvc <- s - liner_max #audessus de 25000
+        }
+        else{diffhvc<-0}
         hh <- hh + (diffhvc * (20 / 100)) #au dessus de vingt cinq mille
-        print(hh)
         return(arrondi(hh))
     }
 
