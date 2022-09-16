@@ -80,8 +80,13 @@ for (i in 1:10){
 
 table(replicate(1000, LasVegas()))
 
+RandChiffres2<- function(n) {
+    return(sample(0:9, size = n))
+}
+RandChiffres2(5)
+
 RandChiffres<- function(n) {
-    return(sample(0:9, size = n, replace = TRUE))
+    return(sample((1*(10**n-1)):(1*10**(n)-1), size = 1))
 }
 
-RandChiffres(10)
+RandChiffres(2)
