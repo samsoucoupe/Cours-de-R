@@ -1,0 +1,11 @@
+hconv<-function(n){
+  seconde<-n%%60
+  minute<-n%/%60
+  heure<-minute%/%60
+  minute<-minute%%60
+  sprintf("%02d:%02d:%02d",heure,minute,seconde)
+  #return
+}
+hconv(4567)
+hconv(3601)
+hconv(123456789)
