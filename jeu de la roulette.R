@@ -1,4 +1,4 @@
-print("jeu de la roulette")
+print("jeu de la roulette bonus")
 
 LireType <-function () {
   ## Le return est implicite !
