@@ -11,14 +11,19 @@ angles <- function(a,b,c,d) {
 
 
 entree<- readLines("angles/angles.txt")
+resultat<- readLines("angles/resultat.txt")
 n <- as.numeric(entree[1])+1
 for (i in 2:n) {
   a<-as.numeric(strsplit(entree[i], " ")[[1]][1])
   b<-as.numeric(strsplit(entree[i], " ")[[1]][2])
   c<-as.numeric(strsplit(entree[i], " ")[[1]][3])
   d<-as.numeric(strsplit(entree[i], " ")[[1]][4])
+    if (angles(a,b,c,d)==as.numeric(resultat[i-1])) {
+        cat("OK\n")
+    } else {
+        cat("KO",a,b,c,d,angles(a,b,c,d)," \n")
+    }
 
-  cat(sprintf("%d\n", angles(a,b,c,d)))
 }
 
 
