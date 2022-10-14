@@ -21,12 +21,15 @@ EvolutionFrequence1<-function(n, p, wA, wB){
 EvolutionFrequence2<-function(n, p, wA, wB){
   i<-0
   cat(sprintf('Fŕequence à la génération %d : %f\n', i, p))
-  while( i< n & p!=wA){
+  while( i<= n && p<1){
 
     p<-ProchaineFrequence(p, wA, wB)
     cat(sprintf('Fŕequence à la génération %d : %f\n', i, p))
+    i<-i+1
   }
   if (p==wA){cat("Fixation : arrêt de la simulation.\n")}
 }
+EvolutionFrequence2(1000, 0.1, 1, 0.9)
+#EvolutionFrequence2(3, 1, 1, 0.9)
+#EvolutionFrequence2(100, 0.1, 1, 1 - 10**(-12))
 
-EvolutionFrequence2(3, 1, 1, 0.9)
