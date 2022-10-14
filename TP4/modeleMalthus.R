@@ -17,3 +17,9 @@ EvolutionMalthus<-function(n, n0, r,verbose=FALSE){
 
 EvolutionMalthus(5, 100, 0.1,TRUE)
 EvolutionMalthus(100, 100, 0.1,FALSE)
+
+
+PopulationMalthus<-function(n, n0, r){
+  return(((1+r)**n)*n0)
+}
+PopulationMalthus(5, 100, 0.1)
