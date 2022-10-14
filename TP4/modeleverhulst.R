@@ -14,3 +14,6 @@ EvolutionVerhulst<-function(n, n0, r, k){
 }
 
 EvolutionVerhulst(5, 100, -0.1, 1000)
+EvolutionVerhulst(100, 100, -0.1, 1000)
+EvolutionVerhulst(100, 100, 0.1, 1000)
+EvolutionVerhulst(100, 100, 2.5, 1000) #cycle
