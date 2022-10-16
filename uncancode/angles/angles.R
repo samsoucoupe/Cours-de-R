@@ -21,8 +21,8 @@ anglessimplifie <- function(a,b,c,d) {
   if (any(Trapeze(rots[,1],rots[,2],rots[,3],rots[,4]))) { return(2) }
 }
 
-entree<- readLines("angles/angles.txt")
-resultat<- readLines("angles/resultat.txt")
+entree<- readLines("angles.txt")
+resultat<- readLines("resultat.txt")
 n <- as.numeric(entree[1])+1
 test<-function (ang){
   for (i in 2:n) {
