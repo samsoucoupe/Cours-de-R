@@ -64,7 +64,7 @@ TestPGCD <- function(pgcd) {
 }
 
 #print("Test pgcdREC")
-#TestPGCD(pgcdREC)
+# TestPGCD(pgcdREC)
 #print("Test pgcdITER")
 #TestPGCD(pgcdITER)
 #print("Test pgcdSubRec")
