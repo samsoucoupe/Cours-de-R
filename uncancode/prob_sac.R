@@ -17,36 +17,7 @@
 #attendu
 #12€ 14kg
 
-#python3
-#dic = {}
-#def trie(l1,l2):
-#  for i in range(len(l1)):
-#    for j in range(len(l1)):
-#      if l1[i]<l1[j]:
-#        l1[i],l1[j]=l1[j],l1[i]
-#        l2[i],l2[j]=l2[j],l2[i]
-#  return l1,l2
-#def sac(quantité,poids,valeur):
-#  trie(poids,valeur)
-#  for i in range(quantité+1):
-#    dic[i]=0
-#  for i in range(len(poids)):
-#    dic[poids[i]]=valeur[i]
-#
-#  for i in range(quantité+1):
-#    dic[i]=0
-#  for j in range(len(poids)):
-#    if i>poids[j]:
-#      dic[i]=max(dic[i],dic[i-poids[j]]+valeur[j])
-#  return dic[quantité]
-#
-#
-#
-#
-#print(sac(15,[0,2,5,7,12,9],[0,1,2,3,7,10]))
 
-
-# Language: R
 
 trie<- function(l1,l2){
   swap<-function(i,j,l){
@@ -76,8 +47,21 @@ sac<-function(quantité,poids,valeur){
   if (length(poids)!=length(valeur) || length(poids)==0 || length(valeur)==0 || quantité<0){
     return ("erreur")
   }
+  if (0 %in% poids && valeur[which(poids==0)]>0){
+    return ("erreur")
+  }
+  if (0 %in% valeur && poids[which(valeur==0)]>0){
+    return ("erreur")
+  }
+    if (quantité==0){
+        return (0)
+    }
+  if (!(0 %in% poids)){
+    poids<-c(0, poids)
+    valeur<-c(0, valeur)
+  }
 
-  trie(poids,valeur)
+
   dic_poids<-rep(0,quantité+1)
 
   for (i in 1:length(poids)){
@@ -173,12 +157,46 @@ sac_mat<-function(quantité,poids,valeur){
 #sac_mat(5,c(2,5,7,12,9,15),c(1,2,3,7,10,15))
 #sac_mat(15,c(2,5,7,12,9),c(1,2,3,7,10))
 
+affichesac_mat<-function(quantité,poids,valeur){
+  if (length(poids)!=length(valeur) || length(poids)==0 || length(valeur)==0 || quantité<0){
+    return ("erreur")
+  }
+  if(0 %in% poids || 0 %in% valeur){
+    return ("erreur")
+  }
+  poids<-c(0,poids)
+  valeur<-c(0,valeur)
+  trie(poids,valeur)
+
+  dic_poids<-matrix(0,length(poids)+1,quantité+3)
+  dic_test<-matrix(0,length(poids)+1,quantité+3)
+  #affichematrice(dic_poids)
+  for (i in 0:quantité+3){
+    dic_test[1,i]<-i-3
+  }
+  for (i in 1:length(poids)+1){
+    dic_test[i,1]<-poids[i-1]
+    dic_test[i,2]<-valeur[i-1]
+  }
+    dic_test[1,1]<-'p'
+    dic_test[1,2]<-'v'
+    cat('====================\n')
+    affichematrice(dic_test)
+  for (np in 2:length(poids)+1){
+    for (i in 1:quantité+3){
+      dic_test[np,i]<-sac(i-3,poids[1:np-1],valeur[1:np-1])
+      }
+    }
+
+  cat('====================\n')
+  affichematrice(dic_test)}
 
 
 Testsac<-function(fonction_sac) {
   system.time(
     stopifnot(
       fonction_sac(15,c(0,2,5,7,12,9),c(0,1,2,3,7,10)) == 12,
+      fonction_sac(15,c(2,5,7,12,9),c(1,2,3,7,10)) == 12,
       fonction_sac(2,c(0,2,5,7,12,9),c(0,1,2,3,7,10))==1,
       fonction_sac(0,c(0,2,5,7,12,9),c(0,1,2,3,7,10))==0,
       fonction_sac(-1,c(0,2,5,7,12,9),c(0,1,2,3,7,10))=='erreur',
@@ -193,6 +211,7 @@ Testsac<-function(fonction_sac) {
 
 
 Testsac(sac)
+affichesac_mat(15,c(2,5,7,12,9),c(1,2,3,7,10))
 #Testsac(sac_mat)
 
 
