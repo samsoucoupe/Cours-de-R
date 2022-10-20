@@ -41,18 +41,30 @@ trie<- function(l1,l2){
   return (l2)
 }
 
-
-
-sac<-function(quantité,poids,valeur){
+testerreursac<-function(quantité,poids,valeur){
   if (length(poids)!=length(valeur) || length(poids)==0 || length(valeur)==0 || quantité<0){
-    return ("erreur")
+    return (TRUE)
   }
   if (0 %in% poids && valeur[which(poids==0)]>0){
-    return ("erreur")
+    return (TRUE)
   }
   if (0 %in% valeur && poids[which(valeur==0)]>0){
-    return ("erreur")
+    return (TRUE)
   }
+}
+
+sac<-function(quantité,poids,valeur){
+
+    #if (testerreursac(quantité,poids,valeur)){return ('Erreur')}
+    if (length(poids)!=length(valeur) || length(poids)==0 || length(valeur)==0 || quantité<0){
+      return ("erreur")
+    }
+    if (0 %in% poids && valeur[which(poids==0)]>0){
+      return ("erreur")
+    }
+    if (0 %in% valeur && poids[which(valeur==0)]>0){
+      return ("erreur")
+    }
     if (quantité==0){
         return (0)
     }
@@ -167,6 +179,8 @@ affichesac_mat<-function(quantité,poids,valeur){
   poids<-c(0,poids)
   valeur<-c(0,valeur)
   trie(poids,valeur)
+  tailleseparateur<-quantité+3
+  sep<-paste(rep('=',tailleseparateur*2),collapse=' ')
 
   dic_poids<-matrix(0,length(poids)+1,quantité+3)
   dic_test<-matrix(0,length(poids)+1,quantité+3)
@@ -180,7 +194,7 @@ affichesac_mat<-function(quantité,poids,valeur){
   }
     dic_test[1,1]<-'p'
     dic_test[1,2]<-'v'
-    cat('====================\n')
+    cat(sep,'\n')
     affichematrice(dic_test)
   for (np in 2:length(poids)+1){
     for (i in 1:quantité+3){
@@ -188,7 +202,7 @@ affichesac_mat<-function(quantité,poids,valeur){
       }
     }
 
-  cat('====================\n')
+  cat(sep,'\n')
   affichematrice(dic_test)}
 
 
