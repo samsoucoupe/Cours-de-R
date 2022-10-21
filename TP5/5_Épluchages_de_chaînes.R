@@ -25,7 +25,7 @@ n <- 3456
 nbin <- IntToBin(3456)
 cat(n, "->", nbin,  "->", strtoi(nbin, base = 2), '\n')
 
-
+IntToBin(0)
 
 
 #n <- 3456
@@ -35,7 +35,7 @@ cat(n, "->", nbin,  "->", strtoi(nbin, base = 2), '\n')
 #3456 -> 110110000000 -> 3456
 
 BinToInt<-function (nbin){
-  
+
 
   if (nbin=='0'){
     return(0)
