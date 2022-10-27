@@ -8,6 +8,7 @@ sortie_10<-c(0,5,1,2,7,5,1,2,2,0,5,1,2,7,5,1,2,2)
 entre_16<-c(3,16,10,163,179)
 sortie_16<-c(10,10,11)
 FirstDigit <- function(n,base){
+
   if  (n==0) return(0)
   n<-abs(n)
   while (!(n<=base && n>=1)){
@@ -22,12 +23,11 @@ FirstDigit <- function(n,base){
 }
 
 
-FirstDigit_vec<-function(vect_entree,base){
-  vect_sortie<-c()
-  for (i in 1:length(vect_entree)){
-    vect_sortie<-c(vect_sortie,FirstDigit(vect_entree[i],base))
-  }
-  return(vect_sortie)
+FirstDigit_vec<-function(vect_entree){
+
+  base<-vect_entree[2]
+  vect_entree<-vect_entree[3:length(vect_entree)]
+  return(sapply(vect_entree,FirstDigit,base))
 }
 
 ####################################################
@@ -41,16 +41,26 @@ FirstDigit_vec<-function(vect_entree,base){
 #x <- scan(file=stream, what= numeric())
 ## Ferme proprement le flux (pour éviter un warning).
 #close(stream)
-x<-entre
 ## On boucle sur les cas de test
 #for(n in tail(x, -2)) {
 #  cat(FirstDigit(n, x[2]), "\n", sep = "")
 #}
-test_vect<-function(a){
-  cat(a,"\n",sep=" ")
-  cat(FirstDigit_vec(a[3:length(a)], a[2]), "\n", sep = " ")
+test_vect<-function(entree,sortie){
+  #cat("Test de la fonction FirstDigit_vec avec l'entrée ",entree," et la base ",entree[2],"\n")
+  resultat<-FirstDigit_vec(entree)
+  cat("Résultat obtenu : ",resultat,"\n")
+  for (i in 1:length(resultat)){
+    if (resultat[i]!=sortie[i]){
+      cat("Test ",i," échoué \n")
+    }
+  }
+
 }
 
-test_vect(entre_10)
-test_vect(entre_16)
+test_vect(entre_10,sortie_10)
+test_vect(entre_16,sortie_16)
+
+
+
+#-----------------------------------------------------------------------------------------------------------------------
 
