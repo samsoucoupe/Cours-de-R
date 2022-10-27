@@ -1,4 +1,4 @@
-
+library(ggplot2)
 #input
 #BenfordLaw(x = 1, base = 2)
 #BenfordLaw(x = 1, base = 8)
@@ -34,6 +34,7 @@ testbenford <- function() {
 
 #testbenford()
 
+hist(x = 1:9, freq = BenfordLaw(x = 1:9, base = 10), main = "Benford's Law", xlab = "First Digit", ylab = "Frequency", col = "blue", border = "red")
 
 PlotBenfordLaw <- function(base = c( 3, 4, 8, 10, 12, 16)) {
   p <- ggplot2::ggplot() + ggplot2::xlim(1, max(base) -1)  +  ggplot2::theme(text = ggplot2::element_text(size = 20))
@@ -43,4 +44,4 @@ PlotBenfordLaw <- function(base = c( 3, 4, 8, 10, 12, 16)) {
   return(p)
 }
 
-PlotBenfordLaw()
+#PlotBenfordLaw()
