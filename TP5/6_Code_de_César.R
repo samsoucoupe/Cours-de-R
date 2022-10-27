@@ -17,7 +17,7 @@ CodeCesar_1<-function(msg,k){
 
   for (i in 1:length(msg)){
 
-  if( msg[i]>=utf8ToInt('A') & msg[i]<=utf8ToInt('Z') || msg[i]>=utf8ToInt('a') & msg[i]<=utf8ToInt('z')){
+  if( msg[i]>=utf8ToInt('A') && msg[i]<=utf8ToInt('Z') || msg[i]>=utf8ToInt('a') && msg[i]<=utf8ToInt('z')){
     msg[i]<-msg[i]+k
   }
   else if (msg[i]>utf8ToInt('Z')){
@@ -119,7 +119,7 @@ DecodeCesar<-function(cod,k){
 #DecodeCesar(CodeCesar_1("Bonjour",3),3)
 
 TestCesar <- function(msg, k) {
-  cod <- CodeCesar_1(msg,k)
+  cod <- CodeCesar_tout(msg,k)
   dcod <- DecodeCesar(cod,k)
   cat('k=', k, ":" , msg, '-->', cod,'-->', dcod, '\n')
 }
@@ -132,9 +132,9 @@ DecodeCesar_sans_Cle<-function(cod){
 #DecodeCesar_sans_Cle('JLGVI XRJFZC')# 17 :  SUPER GASOIL
 #
 #
-#TestCesar('envoyez 36 hommes !', 3)
-#TestCesar('ENVOYEZ 36 HOMMES !', -23)
-#TestCesar('ENVOyez 36 homMES !', 5)
+TestCesar('envoyez 36 hommes !', 3)
+TestCesar('ENVOYEZ 36 HOMMES !', -23)
+TestCesar('ENVOyez 36 homMES !', 5)
 
 
 TestcodeCesar<-function(Function_code){
