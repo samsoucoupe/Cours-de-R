@@ -4,6 +4,12 @@
     <option name="enabledRepositoryUrls">
       <list>
         <option value="@CRAN@" />
+        <option value="https://bioconductor.org/packages/3.15/bioc" />
+        <option value="https://bioconductor.org/packages/3.15/data/annotation" />
+        <option value="https://bioconductor.org/packages/3.15/data/experiment" />
+        <option value="https://www.stats.ox.ac.uk/pub/RWin" />
+        <option value="https://R-Forge.R-project.org" />
+        <option value="https://www.rforge.net" />
       </list>
     </option>
   </component>

@@ -1,4 +1,4 @@
-#library(ggplot2)
+library(ggplot2)
 #input
 #BenfordLaw(x = 1, base = 2)
 #BenfordLaw(x = 1, base = 8)
@@ -52,4 +52,4 @@ PlotBenfordLaw <- function(base = c( 3, 4, 8, 10, 12, 16)) {
   return(p)
 }
 
-#PlotBenfordLaw()
+PlotBenfordLaw()
