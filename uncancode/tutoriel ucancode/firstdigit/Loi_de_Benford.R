@@ -14,13 +14,8 @@ library(ggplot2)
 #[8] 0.05115252 0.04575749
 
 
-BenfordLaw <- function(x, base = 10) {
-  if (base < 2) {
-    stop("base must be >= 2")
-  }
-    if (any(x < 1 | x > 9)) {
-    stop("x must be between 1 and 9")
-    }
+BenfordLaw <- function(x=c(1:9), base = 10) {
+
     if (base == 10) {
     return(log10(1 + 1/x))
     }
@@ -38,8 +33,10 @@ testbenford <- function() {
   )
 
 }
-
-
+BenfordLaw(x = 1, base = 2)==1
+BenfordLaw(x = 1, base = 8)
+BenfordLaw(x = 1:9, base = 10)
+BenfordLaw()
 testbenford()
 
 

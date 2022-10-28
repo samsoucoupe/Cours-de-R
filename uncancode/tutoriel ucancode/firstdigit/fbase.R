@@ -36,3 +36,5 @@ for(n in tail(x, -2)) {
   cat(FirstDigit(n, x[2]), "\n", sep = "")
 }
 
+cat(FirstDigit(5678910,16))
+
