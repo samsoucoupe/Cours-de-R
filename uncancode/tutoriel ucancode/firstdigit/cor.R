@@ -101,6 +101,4 @@ Hist <- function(x, base) {
     ggplot2::ggtitle(title) +
     ggplot2::theme(text = ggplot2::element_text(size = 20))
 }
-x<-1:9
-x<-factorial(x)
-Hist(x =x, base = 10)
+Hist(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3))
