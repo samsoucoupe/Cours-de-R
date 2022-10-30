@@ -101,4 +101,4 @@ Hist <- function(x, base) {
     ggplot2::ggtitle(title) +
     ggplot2::theme(text = ggplot2::element_text(size = 20))
 }
-Hist(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3))
+Hist(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3),4)
