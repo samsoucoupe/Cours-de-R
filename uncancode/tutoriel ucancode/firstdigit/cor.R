@@ -1,3 +1,5 @@
+library('ggplot2')
+
 #Écrire une fonction Cor qui donne le coefficient de corrélation avec la loi de Benford en base b pour un pour un vecteur x de chiffres de poids fort.
 
 #import du module firstdigit
@@ -85,3 +87,20 @@ Cor(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3), base = 4)
 #cat(1:9,'\n')
 #Cor(x = 1:9, base = 10)
 #testCor()
+
+Hist <- function(x, base) {
+  ## Build text elements
+  title <- paste0(
+    "Premiers chiffres en base ", base,
+    "\nCorrélation avec Benford : ",  Cor(x, base)
+  )
+  df <- data.frame(digit = x)
+  ggplot2::ggplot(df,  ggplot2::aes(x=digit)) +
+    ggplot2::geom_histogram(ggplot2::aes(y =..density..), color="black", fill="white", binwidth = 1) +
+    ggplot2::stat_function(fun=BenfordLaw, args = list(base = base), ggplot2::aes(color="Benford Law")) +
+    ggplot2::ggtitle(title) +
+    ggplot2::theme(text = ggplot2::element_text(size = 20))
+}
+x<-1:9
+x<-factorial(x)
+Hist(x =x, base = 10)
