@@ -4,7 +4,7 @@ output: html_document
 Date: "2022-10-30"
 ---
 
-```{r import,echo=FALSE}
+```{r import}
 library('ggplot2')
 ```
 
@@ -58,6 +58,15 @@ BenfordLaw <- function(x, base = 10) {
 #Dans cor(y, z) : l'écart type est nul
 #0.9719616
 #calcul de la corrélation
+
+
+PlotBenfordLaw <- function(base = c( 3, 4, 8, 10, 12, 16)) {
+  p <- ggplot2::ggplot() + ggplot2::xlim(1, max(base) -1)  +  ggplot2::theme(text = ggplot2::element_text(size = 20))
+  for(b in base) {
+    p <- p + ggplot2::stat_function(fun=BenfordLaw, xlim = c(1, b - 1), args = list(base = b), ggplot2::aes_string(colour=b))
+  }
+  return(p)
+}
 
 
 ```
@@ -133,6 +142,41 @@ Hist <- function(x, base) {
 }
 
 ```
+
+# convertisseur ( base 10 vers b)
+```{r}
+convertisseurBase <- function(n,base){
+  x <- n
+  res <- 1
+  if (10==base){return(n)}
+  else {
+    while(x>=base){
+      res <- res*10+x%%base
+      x <- x%/%base
+    }
+    res <- res*10+x
+  }
+  res <- invers(res)
+
+  res <- (res-1)%/%10
+  return (res)
+}
+
+
+
+invers <- function(n){
+  x <- n
+  y <- 0
+  while (x>=10) {
+    y <- y*10+x%%10
+    x <- x%/%10
+  }
+  y <- y*10+x
+  return (y)
+}
+
+```
+
 # appelle de fonction
 ```{r}
 PlotBenfordLaw()
