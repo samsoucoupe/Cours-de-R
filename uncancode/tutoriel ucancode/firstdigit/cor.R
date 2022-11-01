@@ -44,18 +44,15 @@ BenfordLaw <- function(x, base = 10) {
 #calcul de la corrélation
 
 
-convert_comptage<-function(vect_entree,base){
 
-  comptage<- rep(0,base-1) #vecteur vide de taille base
-
-  for (elt in vect_entree){
-    comptage[elt]<-comptage[elt]+1
-  }
-  comptage<-comptage/length(vect_entree)
-  return(comptage)
+convert_comptage_<-function(vect_entree,base){
+  x<-table(vect_entree)
+  x<-x/length(vect_entree)
+  return(x)
 }
-#cat(convert_comptage(c(1,1,1,1,2,2,2,3,3),4),'\n')
-#cat(convert_comptage(1:9,10),'\n')
+cat(convert_comptage(c(1,1,1,1,2,2,2,3,3),4),'\n')
+cat(convert_comptage(1:9,10),'\n')
+
 
 Cor<-function(x,base){
     #calcul de la loi de benford
@@ -70,9 +67,9 @@ Cor<-function(x,base){
     cat(loi_benford_poids_fort,"\n")
     #calcul de la corrélation
     r<-cor(loi_benford_poids_fort,x)
-  if (r!=0){
+
     return(r)
-  }
+
 }
 
 testCor<-function(){
@@ -101,4 +98,7 @@ Hist <- function(x, base) {
     ggplot2::ggtitle(title) +
     ggplot2::theme(text = ggplot2::element_text(size = 20))
 }
-Hist(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3),4)
+#Hist(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3),4)
+
+x<-c(1, 1, 1, 1, 2, 2, 2, 3)
+table(x)
