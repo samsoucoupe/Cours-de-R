@@ -8,7 +8,7 @@
 FirstDigit <- function(n,base){
   if  (n==0) return(0)
   n<-abs(n)
-  while (!(n<=base && n>=1)){
+  while (!(n<base && n>=1)){
 
     if (n<1) n<-n*base
     if (n>base) n<-n/base

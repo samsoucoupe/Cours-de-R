@@ -6,6 +6,13 @@
   <component name="RMarkdownSettings">
     <option name="renderProfiles">
       <map>
+        <entry key="file://$PROJECT_DIR$/uncancode/tutoriel ucancode/firstdigit/rapport_test.Rmd">
+          <value>
+            <RMarkdownRenderProfile>
+              <option name="outputDirectoryUrl" value="file://$PROJECT_DIR$/uncancode/tutoriel ucancode/firstdigit" />
+            </RMarkdownRenderProfile>
+          </value>
+        </entry>
         <entry key="file://$PROJECT_DIR$/uncancode/tutoriel ucancode/firstdigit/test.rmd">
           <value>
             <RMarkdownRenderProfile>

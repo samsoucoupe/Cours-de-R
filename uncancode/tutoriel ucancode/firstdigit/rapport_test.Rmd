@@ -1,54 +1,32 @@
 ---
-title: "rapport test"
+title: "test_w"
 output: html_document
-Date: "2022-10-30"
+date: "2022-11-01"
 ---
-
-```{r import}
-library('ggplot2')
-```
-
-# FristDigit
 ```{r}
+library('ggplot2')
 #Écrire une fonction Cor qui donne le coefficient de corrélation avec la loi de Benford en base b pour un pour un vecteur x de chiffres de poids fort.
-
 #import du module firstdigit
 FirstDigit <- function(n,base){
-
+  
   if  (n==0) return(0)
   n<-abs(n)
-  while (!(n<=base && n>=1)){
-
+  while (!(n<base && n>=1)){
+    
     if (n<1) n<-n*base
     if (n>base) n<-n/base
-
+    
   }
   n<-as.integer(n)
   return(n)
-
+  
 }
-```
-
-# FirstDifit_vect
-```{r}
-FirstDigit_vec<-function(vect_entree){
-
-  base<-vect_entree[2]
-  vect_entree<-vect_entree[3:length(vect_entree)]
+FirstDigit_vec<-function(vect_entree,base){
   return(sapply(vect_entree,FirstDigit,base))
 }
-
-```
-
-# Benford Law
-```{r}
-
 #import de la loi de benford
-
 BenfordLaw <- function(x, base = 10) {
   return((log(x+1, base) - log(x, base)))}
-
-
 #input
 #Cor(x = 1:9, base = 10)
 #Cor(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3), base = 4)
@@ -58,59 +36,32 @@ BenfordLaw <- function(x, base = 10) {
 #Dans cor(y, z) : l'écart type est nul
 #0.9719616
 #calcul de la corrélation
-
-
-PlotBenfordLaw <- function(base = c( 3, 4, 8, 10, 12, 16)) {
-  p <- ggplot2::ggplot() + ggplot2::xlim(1, max(base) -1)  +  ggplot2::theme(text = ggplot2::element_text(size = 20))
-  for(b in base) {
-    p <- p + ggplot2::stat_function(fun=BenfordLaw, xlim = c(1, b - 1), args = list(base = b), ggplot2::aes_string(colour=b))
-  }
-  return(p)
-}
-
-
-```
-
-# convert comptage
-```{r}
 convert_comptage<-function(vect_entree,base){
-
-  comptage<- rep(0,base-1) #vecteur vide de taille base
-
-  for (elt in vect_entree){
-    comptage[elt]<-comptage[elt]+1
+  res<-rep(0,(base-1))
+  for (i in vect_entree){
+    res[i]<-res[i]+1
   }
-  comptage<-comptage/length(vect_entree)
-  return(comptage)
+  res<-res/length(vect_entree)
+    return(res)
 }
 #cat(convert_comptage(c(1,1,1,1,2,2,2,3,3),4),'\n')
 #cat(convert_comptage(1:9,10),'\n')
-```
-
-# Cor
-```{r}
 Cor<-function(x,base){
-    #calcul de la loi de benford
-
-    x<-convert_comptage(x,base)
-    cat(x,'\n')
-
-    #calcul de la loi de benford pour les chiffres de poids fort
-
-
-    loi_benford_poids_fort<-BenfordLaw(1:(base-1),base)
-    cat(loi_benford_poids_fort,"\n")
-    #calcul de la corrélation
-    r<-cor(loi_benford_poids_fort,x)
-  if (r!=0){
-    return(r)
-  }
+  #calcul de la loi de benford
+  cat(x,'\n')
+  x<-convert_comptage(x,base)
+  cat(x,'\n')
+  
+  #calcul de la loi de benford pour les chiffres de poids fort
+  
+  
+  loi_benford_poids_fort<-BenfordLaw(1:(base-1),base)
+  #calcul de la corrélation
+  cat(loi_benford_poids_fort,"\n",x,"\n")
+  r<-cor(loi_benford_poids_fort,x)
+  cat(r,"\n")
+  return(r)
 }
-
-```
-
-# Test cor
-```{r}
 testCor<-function(){
   #cat("Test de la fonction FirstDigit_vec avec l'entrée ",entree," et la base ",entree[2],"\n")
   stopifnot(
@@ -118,15 +69,10 @@ testCor<-function(){
     #Cor(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3), base = 4)==0.9719616
   )
 }
-
 Cor(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3), base = 4)
 #cat(1:9,'\n')
 #Cor(x = 1:9, base = 10)
 #testCor()
-```
-
-# Hist
-```{r}
 Hist <- function(x, base) {
   ## Build text elements
   title <- paste0(
@@ -140,11 +86,36 @@ Hist <- function(x, base) {
     ggplot2::ggtitle(title) +
     ggplot2::theme(text = ggplot2::element_text(size = 20))
 }
-
-```
-
-# convertisseur ( base 10 vers b)
-```{r}
+#Écrire une fonction ProcessBenford qui prend en argument un vecteur numérique x et une base base et effectue les étapes suivantes.
+#Elle vérifie la validité de ses arguments.
+#Elle calcule le vecteur des premiers chiffres des nombres de x écrit en base base.
+#Elle renvoie un histogramme.
+testvalidite<-function(x,base){
+  if (base<2){
+    cat("La base doit être supérieure ou égale à 2 \n")
+    return (FALSE) }
+  if (length(x)==0) {
+    cat("x doit être non vide \n")
+    return (FALSE)}
+  if (any(x<0)) { 
+    cat("x doit être positif") 
+    return (FALSE) }
+  if (any(x==0)) {
+    cat("x doit être non nul") 
+    return (FALSE) }
+  return(TRUE)
+}
+#Écrire une fonction ProcessBenford qui prend en argument un vecteur numérique x et une base base et effectue les étapes suivantes.
+ProcessBenford<-function(x,base){
+  #Elle vérifie la validité de ses arguments.
+  if (testvalidite(x,base)==FALSE) return(NA)
+  #Elle calcule le vecteur des premiers chiffres des nombres de x écrit en base base.
+  premiers_chiffres<-FirstDigit_vec(x,base)
+  #Elle renvoie un histogramme.
+  
+  Hist(premiers_chiffres,base)}
+ProcessBenford(1:9,10)
+ProcessBenford(c(1, 1, 1, 1, 2, 2, 2, 3, 3), 4)
 convertisseurBase <- function(n,base){
   x <- n
   res <- 1
@@ -157,13 +128,9 @@ convertisseurBase <- function(n,base){
     res <- res*10+x
   }
   res <- invers(res)
-
   res <- (res-1)%/%10
   return (res)
 }
-
-
-
 invers <- function(n){
   x <- n
   y <- 0
@@ -174,12 +141,12 @@ invers <- function(n){
   y <- y*10+x
   return (y)
 }
-
+cat("volcano\n")
+ProcessBenford(volcano, base = 10)
+cat("AirPassengers\n")
+ProcessBenford(AirPassengers, base = 10)
+cat("sunspot.month\n")
+ProcessBenford(sunspot.month, base = 10)
+cat("rivers\n")
+ProcessBenford(rivers, base = 8)
 ```
-
-# appelle de fonction
-```{r}
-PlotBenfordLaw()
-Hist(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3),4)
-```
-

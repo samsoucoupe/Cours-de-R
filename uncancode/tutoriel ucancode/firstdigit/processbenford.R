@@ -1,7 +1,8 @@
-source('fbonus.R')
 
 
 
+FirstDigit_vec_base<-function(vect_entree,base){
+  return(sapply(vect_entree,FirstDigit,base))}
 #Écrire une fonction ProcessBenford qui prend en argument un vecteur numérique x et une base base et effectue les étapes suivantes.
 #Elle vérifie la validité de ses arguments.
 #Elle calcule le vecteur des premiers chiffres des nombres de x écrit en base base.
@@ -20,10 +21,10 @@ ProcessBenford<-function(x,base){
   #Elle vérifie la validité de ses arguments.
   if (testvalidite(x,base)==FALSE) return(NA)
   #Elle calcule le vecteur des premiers chiffres des nombres de x écrit en base base.
-  premiers_chiffres<-FirstDigit_vec(c(length(x)-2,base,x))
+  premiers_chiffres<-FirstDigit_vec(x,base)
   #Elle renvoie un histogramme.
   Hist(premiers_chiffres,base)
 }
 
 ProcessBenford(1:9,10)
-ProcessBenford(c(1, 1, 1, 1, 2, 2, 2, 3, 3), 4)
+ProcessBenford(c(1, 1, 1, 1, 2, 2, 2, 3, 3),4)

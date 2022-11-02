@@ -32,7 +32,6 @@ FirstDigit_vec<-function(vect_entree){
 BenfordLaw <- function(x, base = 10) {
   return((log(x+1, base) - log(x, base)))}
 
-
 #input
 #Cor(x = 1:9, base = 10)
 #Cor(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3), base = 4)
@@ -45,26 +44,36 @@ BenfordLaw <- function(x, base = 10) {
 
 
 
-convert_comptage_<-function(vect_entree,base){
-  x<-table(vect_entree)
-  x<-x/length(vect_entree)
-  return(x)
+convert_comptage<-function(vect_entree,base){
+  res<-rep(0,(base-1))
+  for (i in vect_entree){
+    res[i]<-res[i]+1
+  }
+  res<-res/length(vect_entree)
+    return(res)
 }
+cat(convert_comptage(c(1,1,1,1,3,3),4),'\n')
+
 cat(convert_comptage(c(1,1,1,1,2,2,2,3,3),4),'\n')
 cat(convert_comptage(1:9,10),'\n')
+#cat("La loi de Benford en base 10 est: \n")
+#BenfordLaw(c(1,2,3,4,5,6,7,8,9),10)
+#cat("La loi de Benford en base 4 est: \n")
+#BenfordLaw(convert_comptage(c(1,3,3,3,3),4),4)
+#cat("fin\n")
 
 
 Cor<-function(x,base){
     #calcul de la loi de benford
 
     x<-convert_comptage(x,base)
-    cat(x,'\n')
+    #cat(x,'\n')
 
     #calcul de la loi de benford pour les chiffres de poids fort
 
 
     loi_benford_poids_fort<-BenfordLaw(1:(base-1),base)
-    cat(loi_benford_poids_fort,"\n")
+    #cat(loi_benford_poids_fort,"\n")
     #calcul de la corrélation
     r<-cor(loi_benford_poids_fort,x)
 
@@ -80,7 +89,8 @@ testCor<-function(){
   )
 }
 
-Cor(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3), base = 4)
+#Cor(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3), base = 4)
+#Cor(FirstDigit_vec(volcano),10)
 #cat(1:9,'\n')
 #Cor(x = 1:9, base = 10)
 #testCor()
@@ -100,5 +110,16 @@ Hist <- function(x, base) {
 }
 #Hist(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3),4)
 
-x<-c(1, 1, 1, 1, 2, 2, 2, 3)
-table(x)
+#x<-c(1, 1, 1, 1, 2, 2, 2, 3)
+#table(x)
+
+#cat(AirPassengers,'\n')
+
+cat("volcano\n")
+ProcessBenford(volcano, base = 10)
+cat("AirPassengers\n")
+ProcessBenford(AirPassengers, base = 10)
+cat("sunspot.month\n")
+ProcessBenford(sunspot.month, base = 10)
+cat("rivers\n")
+ProcessBenford(rivers, base = 8)

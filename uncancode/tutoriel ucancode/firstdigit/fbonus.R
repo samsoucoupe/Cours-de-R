@@ -11,7 +11,7 @@ FirstDigit <- function(n,base){
 
   if  (n==0) return(0)
   n<-abs(n)
-  while (!(n<=base && n>=1)){
+  while (!(n<base && n>=1)){
 
     if (n<1) n<-n*base
     if (n>base) n<-n/base
@@ -23,10 +23,8 @@ FirstDigit <- function(n,base){
 }
 
 
-FirstDigit_vec<-function(vect_entree){
+FirstDigit_vec<-function(vect_entree,base){
 
-  base<-vect_entree[2]
-  vect_entree<-vect_entree[3:length(vect_entree)]
   return(sapply(vect_entree,FirstDigit,base))
 }
 
@@ -47,7 +45,7 @@ FirstDigit_vec<-function(vect_entree){
 #}
 test_vect<-function(entree,sortie){
   #cat("Test de la fonction FirstDigit_vec avec l'entrée ",entree," et la base ",entree[2],"\n")
-  resultat<-FirstDigit_vec(entree)
+  resultat<-FirstDigit_vec(entree[3:length(entree)],entree[2])
   cat("Résultat obtenu : ",resultat,"\n")
   for (i in 1:length(resultat)){
     if (resultat[i]!=sortie[i]){
