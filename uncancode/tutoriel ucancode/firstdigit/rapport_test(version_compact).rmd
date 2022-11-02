@@ -1,0 +1,184 @@
+---
+title: "test_w"
+output: html_document
+date: "2022-11-01"
+---
+```{r}
+library('ggplot2')
+
+#Écrire une fonction Cor qui donne le coefficient de corrélation avec la loi de Benford en base b pour un pour un vecteur x de chiffres de poids fort.
+
+#import du module firstdigit
+FirstDigit <- function(n,base){
+  
+  if  (n==0) return(0)
+  n<-abs(n)
+  while (!(n<=base && n>=1)){
+    
+    if (n<1) n<-n*base
+    if (n>base) n<-n/base
+    
+  }
+  n<-as.integer(n)
+  return(n)
+  
+}
+
+
+FirstDigit_vec<-function(vect_entree,base){
+  return(sapply(vect_entree,FirstDigit,base))
+}
+
+#import de la loi de benford
+
+BenfordLaw <- function(x, base = 10) {
+  return((log(x+1, base) - log(x, base)))}
+
+
+#input
+#Cor(x = 1:9, base = 10)
+#Cor(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3), base = 4)
+#output
+#NA
+#Message d'avis :
+#Dans cor(y, z) : l'écart type est nul
+#0.9719616
+#calcul de la corrélation
+
+
+convert_comptage <- function(vect,base){
+  res <- c() 
+  a <- (1:base-1)
+  for ( i in a ) {
+    c <- 0
+    for ( j in vect) {
+      if (j==i){
+        c <- c+1
+      }
+      
+    }
+    res <- c(res,c)
+  }
+  return(res)
+}
+#cat(convert_comptage(c(1,1,1,1,2,2,2,3,3),4),'\n')
+#cat(convert_comptage(1:9,10),'\n')
+
+Cor<-function(x,base){
+  #calcul de la loi de benford
+  
+  x<-convert_comptage(x,base)
+  cat(x,'\n')
+  
+  #calcul de la loi de benford pour les chiffres de poids fort
+  
+  
+  loi_benford_poids_fort<-BenfordLaw(1:(base-1),base)
+  #calcul de la corrélation
+  cat(loi_benford_poids_fort,"\n",x,"\n")
+  r<-cor(loi_benford_poids_fort,x)
+  cat(r,"\n")
+  return(r)
+}
+
+testCor<-function(){
+  #cat("Test de la fonction FirstDigit_vec avec l'entrée ",entree," et la base ",entree[2],"\n")
+  stopifnot(
+    is.na(Cor(x = 1:9, base = 10))
+    #Cor(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3), base = 4)==0.9719616
+  )
+}
+
+Cor(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3), base = 4)
+#cat(1:9,'\n')
+#Cor(x = 1:9, base = 10)
+#testCor()
+
+Hist <- function(x, base) {
+  ## Build text elements
+  title <- paste0(
+    "Premiers chiffres en base ", base,
+    "\nCorrélation avec Benford : ",  Cor(x, base)
+  )
+  df <- data.frame(digit = x)
+  ggplot2::ggplot(df,  ggplot2::aes(x=digit)) +
+    ggplot2::geom_histogram(ggplot2::aes(y =..density..), color="black", fill="white", binwidth = 1) +
+    ggplot2::stat_function(fun=BenfordLaw, args = list(base = base), ggplot2::aes(color="Benford Law")) +
+    ggplot2::ggtitle(title) +
+    ggplot2::theme(text = ggplot2::element_text(size = 20))
+}
+
+
+#Écrire une fonction ProcessBenford qui prend en argument un vecteur numérique x et une base base et effectue les étapes suivantes.
+#Elle vérifie la validité de ses arguments.
+#Elle calcule le vecteur des premiers chiffres des nombres de x écrit en base base.
+#Elle renvoie un histogramme.
+testvalidite<-function(x,base){
+  if (base<2){
+    cat("La base doit être supérieure ou égale à 2 \n")
+    return (FALSE) }
+  if (length(x)==0) {
+    cat("x doit être non vide \n")
+    return (FALSE)}
+  if (any(x<0)) { 
+    cat("x doit être positif") 
+    return (FALSE) }
+  if (any(x==0)) {
+    cat("x doit être non nul") 
+    return (FALSE) }
+  return(TRUE)
+}
+#Écrire une fonction ProcessBenford qui prend en argument un vecteur numérique x et une base base et effectue les étapes suivantes.
+ProcessBenford<-function(x,base){
+  #Elle vérifie la validité de ses arguments.
+  if (testvalidite(x,base)==FALSE) return(NA)
+  #Elle calcule le vecteur des premiers chiffres des nombres de x écrit en base base.
+  premiers_chiffres<-FirstDigit_vec(x,base)
+  #Elle renvoie un histogramme.
+  
+  Hist(premiers_chiffres,base)}
+
+ProcessBenford(1:9,10)
+ProcessBenford(c(1, 1, 1, 1, 2, 2, 2, 3, 3), 4)
+
+convertisseurBase <- function(n,base){
+  x <- n
+  res <- 1
+  if (10==base){return(n)}
+  else {
+    while(x>=base){
+      res <- res*10+x%%base
+      x <- x%/%base
+    }
+    res <- res*10+x
+  }
+  res <- invers(res)
+
+  res <- (res-1)%/%10
+  return (res)
+}
+
+
+
+invers <- function(n){
+  x <- n
+  y <- 0
+  while (x>=10) {
+    y <- y*10+x%%10
+    x <- x%/%10
+  }
+  y <- y*10+x
+  return (y)
+}
+
+
+
+cat("volcano \n")
+ProcessBenford(volcano, base = 10)
+
+
+ProcessBenford(sunspot.month, base = 10)
+ProcessBenford(rivers, base = 8)
+
+
+```
