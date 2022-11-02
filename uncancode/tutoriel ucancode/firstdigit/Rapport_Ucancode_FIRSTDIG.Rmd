@@ -1,5 +1,5 @@
 ---
-title: "Rapport Uncancode n°1 :\n FIRSTDIG - Pour aller plus loin  ( Bonus )"
+title: "Rapport Uncancode n°1 : FIRSTDIG - Pour aller plus loin  ( Bonus )"
 output: html_document
 Date: "2022-10-30"
 ---
@@ -14,18 +14,16 @@ library('ggplot2')
 
 #import du module firstdigit
 FirstDigit <- function(n,base){
-  
-  if  (n==0) return(0)
+  if (n==0) return(0)
   n<-abs(n)
-  while (!(n<base && n>=1)){
-    
-    if (n<1) n<-n*base
-    if (n>base) n<-n/base
-    
+  while( n>=base){
+    n<-n/base
+  }
+  while (n<1){
+    n<-n*base
   }
   n<-as.integer(n)
   return(n)
-  
 }
 ```
 
@@ -34,9 +32,11 @@ FirstDigit <- function(n,base){
 
 ```{r}
 FirstDigit_vec<-function(vect_entree,base){
+  if (typeof(vect_entree)== "character") {
+    vect_entree<-as.numeric(vect_entree)
+  }
   return(sapply(vect_entree,FirstDigit,base))
 }
-
 
 ```
 
@@ -90,18 +90,14 @@ convert_comptage<-function(vect_entree,base){
 ```{r}
 Cor<-function(x,base){
   #calcul de la loi de benford
-  cat(x,'\n')
   x<-convert_comptage(x,base)
-  cat(x,'\n')
   
   #calcul de la loi de benford pour les chiffres de poids fort
   
   
   loi_benford_poids_fort<-BenfordLaw(1:(base-1),base)
   #calcul de la corrélation
-  cat(loi_benford_poids_fort,"\n",x,"\n")
   r<-cor(loi_benford_poids_fort,x)
-  cat(r,"\n")
   return(r)
 }
 
@@ -174,7 +170,17 @@ ProcessBenford<-function(x,base){
   
   Hist(premiers_chiffres,base)}
 
+ProcessBenford(sunspot.month, base = 10)
+ProcessBenford(rivers, base = 8)
+
 ```
+reslutats de la  question 
+```{r}
+ProcessBenford(AirPassengers , base = 10)
+
+ProcessBenford(EuStockMarkets , base = 10)
+```
+
 
 # 1.4.8
 
@@ -183,8 +189,47 @@ x <- sample(1:10000 ,replace = TRUE ,size = 10000)
 y <- sample(1:10000 ,replace = TRUE ,size = 10000)
 #ProcessBenford(x,base = 10)
 #ProcessBenford(y,base = 10)
+z <- x*y
+#ProcessBenford(z,base=10)
+e <- y+x
+#ProcessBenford(e,base=10)
+f <- x-y
+#ProcessBenford(f,base=10)
+g <- x/y
+#ProcessBenford(g,base=10)
+h <-x**2
+#ProcessBenford(h,base=10)
+i <- x**3
+#ProcessBenford(i,base=10)
 ```
 
+# File size
+
+```{r}
+#Écrire une fonction FileSize qui renvoie le vecteur des tailles des fichiers dans le répertoire path visité récursivement. Indices : file.size et list.files.
+#Analyser la taille des fichiers dans différents répertoires.
+
+
+FileSize<-function(path){
+  #Écrire une fonction FileSize qui renvoie le vecteur des tailles des fichiers dans le répertoire path visité récursivement. Indices : file.size et list.files.
+  return(file.size(list.files(path,recursive=TRUE)))
+}
+
+#Analyser la taille des fichiers dans différents répertoires.
+
+x<-FileSize(".")
+cat(x)
+```
+# 1.4.10
+
+# path
+```{r}
+path <- file.path("./resultats-par-niveau-burvot-t1-france-entiere.txt")
+df <- read.table(path, sep = ";", quote = "", dec = ",", header = FALSE, skip = 1, fill = TRUE, fileEncoding =  "ISO-8859-1")
+head(df)
+header <- scan(path, nlines = 1, what = character(), sep = ";")
+header
+```
 
 # appelle de fonction
 ```{r}
