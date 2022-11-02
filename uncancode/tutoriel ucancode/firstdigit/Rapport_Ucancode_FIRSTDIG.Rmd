@@ -11,7 +11,6 @@ library('ggplot2')
 # FristDigit
 ```{r}
 #Écrire une fonction Cor qui donne le coefficient de corrélation avec la loi de Benford en base b pour un pour un vecteur x de chiffres de poids fort.
-
 #import du module firstdigit
 FirstDigit <- function(n,base){
   if (n==0) return(0)
@@ -37,19 +36,14 @@ FirstDigit_vec<-function(vect_entree,base){
   }
   return(sapply(vect_entree,FirstDigit,base))
 }
-
 ```
 
 # Benford Law
 
 ```{r}
-
 #import de la loi de benford
-
 BenfordLaw <- function(x, base = 10) {
   return((log(x+1, base) - log(x, base)))}
-
-
 #input
 #Cor(x = 1:9, base = 10)
 #Cor(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3), base = 4)
@@ -59,8 +53,6 @@ BenfordLaw <- function(x, base = 10) {
 #Dans cor(y, z) : l'écart type est nul
 #0.9719616
 #calcul de la corrélation
-
-
 PlotBenfordLaw <- function(base = c( 3, 4, 8, 10, 12, 16)) {
   p <- ggplot2::ggplot() + ggplot2::xlim(1, max(base) -1)  +  ggplot2::theme(text = ggplot2::element_text(size = 20))
   for(b in base) {
@@ -68,8 +60,6 @@ PlotBenfordLaw <- function(base = c( 3, 4, 8, 10, 12, 16)) {
   }
   return(p)
 }
-
-
 ```
 
 # convert comptage
@@ -100,7 +90,6 @@ Cor<-function(x,base){
   r<-cor(loi_benford_poids_fort,x)
   return(r)
 }
-
 ```
 
 # Test cor
@@ -133,7 +122,6 @@ Hist <- function(x, base) {
     ggplot2::ggtitle(title) +
     ggplot2::theme(text = ggplot2::element_text(size = 20))
 }
-
 ```
 
 # test validité (process Benford)
@@ -152,9 +140,7 @@ testvalidite<-function(x,base){
   if (any(x<0)) { 
     cat("x doit être positif") 
     return (FALSE) }
-  if (any(x==0)) {
-    cat("x doit être non nul") 
-    return (FALSE) }
+  
   return(TRUE)
 }
 ```
@@ -169,15 +155,12 @@ ProcessBenford<-function(x,base){
   #Elle renvoie un histogramme.
   
   Hist(premiers_chiffres,base)}
-
 ProcessBenford(sunspot.month, base = 10)
 ProcessBenford(rivers, base = 8)
-
 ```
 reslutats de la  question 
 ```{r}
 ProcessBenford(AirPassengers , base = 10)
-
 ProcessBenford(EuStockMarkets , base = 10)
 ```
 
@@ -208,15 +191,11 @@ i <- x**3
 ```{r}
 #Écrire une fonction FileSize qui renvoie le vecteur des tailles des fichiers dans le répertoire path visité récursivement. Indices : file.size et list.files.
 #Analyser la taille des fichiers dans différents répertoires.
-
-
 FileSize<-function(path){
   #Écrire une fonction FileSize qui renvoie le vecteur des tailles des fichiers dans le répertoire path visité récursivement. Indices : file.size et list.files.
   return(file.size(list.files(path,recursive=TRUE)))
 }
-
 #Analyser la taille des fichiers dans différents répertoires.
-
 x<-FileSize(".")
 cat(x)
 ```
@@ -229,6 +208,8 @@ df <- read.table(path, sep = ";", quote = "", dec = ",", header = FALSE, skip = 
 head(df)
 header <- scan(path, nlines = 1, what = character(), sep = ";")
 header
+
+ProcessBenford(df[,seq(26,105,7)],10)
 ```
 
 # appelle de fonction
@@ -238,4 +219,3 @@ ProcessBenford(c(1, 1, 1, 1, 2, 2, 2, 3, 3), 4)
 PlotBenfordLaw()
 Hist(x = c(1, 1, 1, 1, 2, 2, 2, 3, 3),4)
 ```
-
