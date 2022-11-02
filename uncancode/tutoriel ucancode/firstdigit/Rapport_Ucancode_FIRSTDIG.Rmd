@@ -37,6 +37,8 @@ FirstDigit_vec<-function(vect_entree,base){
   return(sapply(vect_entree,FirstDigit,base))
 }
 ```
+Le juge accepte bien les programe 
+
 
 # Benford Law
 
@@ -155,12 +157,29 @@ ProcessBenford<-function(x,base){
   #Elle renvoie un histogramme.
   
   Hist(premiers_chiffres,base)}
+
+```
+```{r}
 ProcessBenford(sunspot.month, base = 10)
 ProcessBenford(rivers, base = 8)
+ProcessBenford(rivers, base = 10)
 ```
-reslutats de la  question 
+
+
+comme le montre l'exemple ci-dessus le changement de base affeccte grandement le resultat.
+
+
+reslutats de la  question : deux autre jeux de données qui fonctionne sont AirPassengers et EuStockMarkets comme les montre les graphiques suivant :
+AirPassengers:
+
 ```{r}
 ProcessBenford(AirPassengers , base = 10)
+
+```
+
+EuStockMarkets:
+
+```{r}
 ProcessBenford(EuStockMarkets , base = 10)
 ```
 
@@ -170,21 +189,54 @@ ProcessBenford(EuStockMarkets , base = 10)
 ```{r}
 x <- sample(1:10000 ,replace = TRUE ,size = 10000)
 y <- sample(1:10000 ,replace = TRUE ,size = 10000)
-#ProcessBenford(x,base = 10)
-#ProcessBenford(y,base = 10)
-z <- x*y
-#ProcessBenford(z,base=10)
-e <- y+x
-#ProcessBenford(e,base=10)
-f <- x-y
-#ProcessBenford(f,base=10)
-g <- x/y
-#ProcessBenford(g,base=10)
-h <-x**2
-#ProcessBenford(h,base=10)
-i <- x**3
-#ProcessBenford(i,base=10)
+
+
+
 ```
+
+les vecteur x et y ne verifie pas la loi de benford comme le montre les deux graphiques ci-dessou :
+pour x :
+
+```{r}
+ProcessBenford(x,base = 10)
+
+```
+
+pour y :
+
+```{r}
+ProcessBenford(y,base = 10)
+```
+
+comme le montre des graphiques ci-dessous les operation arithmetic on tendance a rapporocher les resultats de la loi de benford :
+
+x*y :
+
+```{r}
+z <- x*y
+ProcessBenford(z,base=10)
+
+```
+y+x :
+```{r}
+e <- y+x
+ProcessBenford(e,base=10)
+
+```
+x/y :
+```{r}
+g <- x/y
+ProcessBenford(g,base=10)
+
+```
+ x^2 et x^3 :
+```{r}
+h <-x**2
+ProcessBenford(h,base=10)
+i <- x**3
+ProcessBenford(i,base=10)
+```
+
 
 # File size
 
@@ -200,7 +252,7 @@ x<-FileSize(".")
 cat(x)
 ```
 # 1.4.10
-
+La raison derriere l'absance de la premierre ligne est que skipe est a 1 
 # path
 ```{r}
 path <- file.path("./resultats-par-niveau-burvot-t1-france-entiere.txt")
@@ -208,11 +260,30 @@ df <- read.table(path, sep = ";", quote = "", dec = ",", header = FALSE, skip = 
 head(df)
 header <- scan(path, nlines = 1, what = character(), sep = ";")
 header
-
 ProcessBenford(df[,seq(26,105,7)],10)
 ```
 
-# appelle de fonction
+
+# 1.4.11
+
+ nous avons choisi ensemble des factoriel 
+ plus l'ont va loin dans ensemble plus la correlation est proche de 1 
+ comme le montre l'exemple ci-dessous :
+ 
+ 
+ factoriel 10 :
+ 
+```{r}
+ProcessBenford(factorial(0:10),10)
+```
+ factoriel 170 :
+```{r}
+ProcessBenford(factorial(0:170),10)
+```
+
+# test de fonction
+
+ci dessous les graphiques de certain test effectué durant notre temps de programation
 ```{r}
 ProcessBenford(1:9,10)
 ProcessBenford(c(1, 1, 1, 1, 2, 2, 2, 3, 3), 4)
