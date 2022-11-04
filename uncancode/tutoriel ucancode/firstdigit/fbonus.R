@@ -7,7 +7,7 @@ sortie_10<-c(0,5,1,2,7,5,1,2,2,0,5,1,2,7,5,1,2,2)
 
 entre_16<-c(3,16,10,163,179)
 sortie_16<-c(10,10,11)
-FirstDigit <- function(n,base){
+FirstDigit_2 <- function(n,base){
 
   if  (n==0) return(0)
   n<-abs(n)
@@ -22,9 +22,25 @@ FirstDigit <- function(n,base){
 
 }
 
+FirstDigit<-function(n,base){
+  if (n==0) return(0)
+  n<-abs(n)
+  while( n>=base){
+    n<-n/base
+  }
+  while (n<1){
+    n<-n*base
+  }
+  n<-as.integer(n)
+  return(n)
+}
+
+
 
 FirstDigit_vec<-function(vect_entree,base){
-
+  if (typeof(vect_entree)== "character") {
+    vect_entree<-as.numeric(vect_entree)
+  }
   return(sapply(vect_entree,FirstDigit,base))
 }
 
