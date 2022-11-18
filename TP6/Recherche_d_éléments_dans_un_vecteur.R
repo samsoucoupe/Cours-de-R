@@ -1,0 +1,6 @@
+vec <- sample(0:10,12, replace=TRUE)
+print(vec)
+sum(vec == 0)
+head(which(vec == 0),1)
+min(vec[ vec != 0])
+median(vec)
