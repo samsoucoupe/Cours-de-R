@@ -59,16 +59,46 @@ MaxAndIdx<-function(x){
   return (c(x[index],index))
 }
 
+MaxAndIdx2 <- function(x) c(max(x), which.max(x))
+
 Max2_vect<-function(x){
-  M<-x[1]
-  M2<-x[2]
-  if (M<M2){M<-x[2];M2<-x[1]}
-    for (i in 3:length(x)){
-        if (x[i]>M){ M2<-M; M<-x[i] }
-        else if (x[i]>M2){ M2<-x[i] }
+  #max3(x[1],x[2],x[3]) renvoi les 2 plus grandes valeurs
+  max3<-function(a,b,c){
+    if (a>b){
+      if (a>c){return(c(a,Max2(b,c)))}
+      else {return(c(c,a))}
     }
-        return(c(M,M2))
+    else {
+      if (b>c){return(c(b,c))}
+      else {return(c(c,b))}
+    }
+
+
+    }
+    #max2(x[1],x[2]) renvoi la plus grande valeur
+  if(length(x)==0){return(c("-Inf","-Inf"))}
+  if (length(x)==1){return(c(x[1],"-Inf"))}
+  if (length(x)==2){
+    if (x[1]>x[2]){return(c(x[1],1))}
+    else {return(c(x[2],2))}
+  }
+    M<-c(max(x[1],x[2]),min(x[1],x[2]))
+    index<-1
+
+    while(index<=length(x)){
+      M<-max3(M[1],M[2],x[index])
+      index<-index+1
+
+    }
+    return(M)
 }
+
+
+Kmax <- function(x, k) {
+  k <- max(0,k)
+  return( head( sort(x, decreasing = TRUE), k) )
+}
+
 
 #Test des fonction MAx
 
@@ -115,6 +145,19 @@ if (TRUE)
   x <- runif(6);
   print(x)
   print(MaxAndIdx(x))
+  cat("Max2_vect\n")
+  print(Max2_vect(c()))
+  x <- runif(6);
+  print(x)
+  print(Max2_vect(x))
+  cat("KMAX\n")
+  x <- sample(1:100, 6, replace = TRUE)
+  print(x)
+  print(Kmax(x, 0))
+  print(Kmax(x, 2))
+  print(Kmax(x, 4))
+  print(Kmax(x, 7))
+
 }
 
 
