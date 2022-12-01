@@ -103,13 +103,80 @@ dessin_polynome(carre)
 
 reg_poly<-function(n, r=1){
   #Tous les sommets d’un polygone régulier peuvent être engendrés à partir d’un seul sommet et les images successives d’une rotation: quel est l’angle de cette rotation ? Donnez-le en radians et en fonction du nombre n de côtés du polygone.
-  #Quelles sont les coordonnées cartésiennes (x,y) d’un point dont les coordonnées polaires sont (r,theta)?
-  #Tester votre fonction reg_poly en dessinant un exemple de polygone régulier (vous pouvez utiliser la fonction dessin_polygone définie précédemment).
-  theta<-2*pi/n
-  x<-r*cos(theta)
-  y<-r*sin(theta)
-  return(creer_polygone(x,y))
+  angle=2*pi/n
+  #Définir une matrice de taille n*2, dont la j-ième ligne contient les coordonnées du j-ième sommet du polygone p.
+  poly<-matrix(0,n+1,2)
+  #Définir une matrice de taille n*2, dont la j-ième ligne contient les coordonnées du j-ième sommet du polygone p.
+  for (i in 1:n) {
+    poly[i,1]<-r*cos(angle*i)
+    poly[i,2]<-r*sin(angle*i)
+  }
+  poly[n+1,1]<-r*cos(angle*1)
+  poly[n+1,2]<-r*sin(angle*1)
 
+  #Quelles sont les coordonnées cartésiennes (x,y) d’un point dont les coordonnées polaires sont (r,theta)?
+  #x=r*cos(theta)
+  #y=r*sin(theta)
+  #Tester votre fonction reg_poly en dessinant un exemple de polygone régulier (vous pouvez utiliser la fonction dessin_polygone définie précédemment).
+  return(poly)
 }
 
 dessin_polynome(reg_poly(5, 1))
+
+#4.2 Polygone surprise
+x <- c(0,0,9,11,11,9,8,11,9,6,3,3,8,9,9,8,2,2)
+y <- c(0,12,12,10,7,5,5,0,0,5,5,7,7,8,9,10,10,0)
+surprise <- creer_polygone(x,y)
+plot(surprise,col="black", type="l")
+
+# donne le logo de R
+
+#5 Approximation de l’aire d’un polygone simple
+#5.1 Tirer un ou plusieurs points uniformément au hasard dans un rectangle
+#Définir une fonction boite qui prend en argument un polygone donné sous la forme d’une matrice (comme précédemment) et renvoie une matrice contenant l’abscisse minimale du plus petit rectangle contenant ce polygone, son abscisse maximale, son ordonnée minimale et son ordonnée maximale. Par exemple:
+
+#print(losange)
+#bo <- boite(losange)
+#print(bo)
+#x  y
+#[1,] 50 30
+#[2,] 10 50
+#[3,] 50 70
+#[4,] 90 50
+#[5,] 50 30
+#x  y
+#min 10 30
+#max 90 70
+
+
+boite<-function(poly){
+  #Définir une matrice de taille 2*2, dont la j-ième ligne contient les coordonnées du j-ième sommet du polygone p.
+    boite<-matrix(0,2,2)
+
+    boite[1,1]<-min(poly[,1])
+    boite[1,2]<-min(poly[,2])
+    boite[2,1]<-max(poly[,1])
+    boite[2,2]<-max(poly[,2])
+  return(boite)
+}
+
+print(losange)
+bo <- boite(losange)
+print(bo)
+
+#Tirage de points uniformément aléatoirement dans un rectangle
+#Définir une fonction points_aleatoires qui prend en argument un couple (n, bo), où n est un entier et bo une boîte rectangulaire, et renvoie une matrice M contenant n points tirés uniformément au hasard dans le rectangle r=[xmin;xmax]*[ymin;ymax]. Plus précisément, la matrice M est de taille n*2 et chaque colonne contient un point tiré uniformément au hasard dans le rectangle r. Par exemple:
+
+points_aleatoires<-function(n, bo){
+  #Définir une matrice de taille n*2, dont la j-ième ligne contient les coordonnées du j-ième sommet du polygone p.
+  points<-matrix(0,n,2)
+
+  for (i in 1:n) {
+    points[i,1]<-runif(1,bo[1,1],bo[2,1])
+    points[i,2]<-runif(1,bo[1,2],bo[2,2])
+  }
+  return(points)
+}
+bo <- matrix(c(3, 5, 6, 8),nrow=2, dimnames=list(c("min","max"), c("x","y")))
+pts <- points_aleatoires(5, bo)
+print(pts)
